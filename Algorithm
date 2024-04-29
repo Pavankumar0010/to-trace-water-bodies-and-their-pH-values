@@ -1,0 +1,39 @@
+step-by-step execution:-
+
+1. Initialize the Dataset and Visualization Parameters:-
+   - Initialize the dataset with the Earth Engine image 'OpenLandMap/SOL/SOL_PH-H2O_USDA-4C1A2A_M/v02'.
+   - Define visualization parameters including bands to display, minimum and maximum values for visualization, and a palette of colours.
+
+2. Center the Map on the Dataset:-
+   - Use the `Map.centerObject()` function to centre the map view on the dataset.
+
+3. Add Layer to the Map:-
+   - Add the dataset to the map using `Map.addLayer()` with the visualization parameters defined earlier. This displays the water pH data on the map.
+
+4. Create Legend Panel:-
+   - Initialize a UI panel `legend` to hold the legend items.
+   - Define the style for the legend panel including position and padding.
+
+5. Create Legend Title:-
+   - Initialize a UI label `legendTitle` to display the title 'Water pH' for the legend.
+   - Define the style for the legend title including font weight, font size, margin, and padding.
+
+6. Add Legend Title to Panel:-
+   - Add the legend title `legendTitle` to the `legend` panel.
+
+7. Define Function to Create Legend Rows:-
+   - Define a function `makeRow()` that takes a colour and a label as input parameters.
+   - Create a colour box UI label inside the function to represent the colour range.
+   - Create a label UI label to represent the label text.
+   - Return a UI panel that contains the colour box and label arranged horizontally.
+
+8. Define Legend Color Palette and Labels:-
+   - Define a palette array containing colour codes for each pH range.
+   - Define a labels array containing corresponding pH range labels.
+
+9. Add Color and Labels to the Legend:-
+   - Iterate through each colour and label in the palette and label arrays.
+   - For each iteration, create a legend row using the `makeRow()` function and add it to the `legend` panel.
+
+10. Add Legend to Map:-
+    - Add the `legend` panel to the map using the `Map. add()` function.
