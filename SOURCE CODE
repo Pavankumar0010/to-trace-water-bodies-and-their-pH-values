@@ -1,0 +1,75 @@
+var dataset = ee.Image('OpenLandMap/SOL/SOL_PH-H2O_USDA-4C1A2A_M/v02');
+var visualization = {
+  bands: ['b0'],
+  min: 42,
+  max: 110,
+  palette: [
+    '8B0000', 'CD5C5C', 'FFA07A', 'FFFF00', 'ADFF2F', '7FFF00', '32CD32', '008000', '006400'
+  ]
+};
+
+Map.centerObject(dataset);
+
+Map.addLayer(dataset, visualization, 'Water pH');
+
+// Create legend
+var legend = ui.Panel({
+  style: {
+    position: 'bottom-left',
+    padding: '8px 15px'
+  }
+});
+
+// Create legend title
+var legendTitle = ui.Label({
+  value: 'Water pH',
+  style: {
+    fontWeight: 'bold',
+    fontSize: '18px',
+    margin: '0 0 4px 0',
+    padding: '0'
+  }
+});
+
+// Add the title to the panel
+legend.add(legendTitle);
+
+// Create and style 1 row of the legend.
+var makeRow = function(color, label) {
+  // Create the color box representing the range
+  var colorBox = ui.Label({
+    style: {
+      backgroundColor: color,
+      // Use padding to give the box height and width.
+      padding: '8px',
+      margin: '0 0 4px 0',
+      border: '1px solid black'
+    }
+  });
+
+  // Create the label
+  var description = ui.Label({
+    value: label,
+    style: {margin: '0 0 4px 6px'}
+  });
+
+  // return the panel
+  return ui.Panel({
+    widgets: [colorBox, description],
+    layout: ui.Panel.Layout.Flow('horizontal')
+  });
+};
+
+// Legend color and labels
+var palette = [
+  '#8B0000', '#CD5C5C', '#FFA07A', '#FFFF00', '#ADFF2F', '#7FFF00', '#32CD32', '#008000', '#006400'
+];
+var labels = ['< 4.5', '4.5 - 5.5', '5.5 - 6.5', '6.5 - 7', '7 - 7.5', '7.5 - 8', '8 - 8.5', '8.5 - 9', '> 9'];
+
+// Add color and labels to the legend
+for (var i = 0; i < 9; i++) {
+  legend.add(makeRow(palette[i], labels[i]));
+}
+
+// Add legend to map
+Map.add(legend);
